@@ -25,11 +25,17 @@
     font-family:monospace;
 }
 
-input[type=text]{
+input{
+
     padding: 10px ;
     border-radius: 10px;
     background-color: transparent;
     display: grid;
 
 
+}
+
+#calender{
+    padding: 5px;
+    display:inline;
 }
