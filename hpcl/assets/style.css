@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 #whole{
 
@@ -39,3 +40,47 @@ input[type=date]{
     padding: 5px;
     display:inline;
 }
+||||||| merged common ancestors
+=======
+
+#whole{
+
+
+    background-repeat: no-repeat;
+
+    margin-bottom: 20px;
+
+}
+
+#body{
+
+
+    font-family: Roboto,monospace;}
+
+.button {
+    background-color:crimson;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-family:monospace;
+}
+
+input{
+
+    padding: 10px ;
+    border-radius: 10px;
+    background-color: transparent;
+    display: grid;
+
+
+}
+
+#calender{
+    padding: 5px;
+    display:inline;
+}
+>>>>>>> 3a45434f507b04cda85f2f44002807efe1a5b88c
