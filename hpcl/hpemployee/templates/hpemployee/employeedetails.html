@@ -40,29 +40,3 @@
       </div>
   </div>
 {%endblock%}
-||||||| merged common ancestors
-=======
-{%extends 'base.html'%}
-{%block body%}
-  <div id="body" align="center">
-    <h1>Employee Details</h1>
-    <form  action="/employee/hpemployee/" method="post" enctype="multipart/form-data">
-      {%csrf_token%}
-      employee number:
-      {%for num in form%}
-      {{num}}
-      {%endfor%}
-      <input class="button" type="submit" value="Get Details">
-    </form>
-    <div >
-      {%for var3 in forms%}
-
-        {{var3}}
-    {%endfor%}
-
-
-
-    </div>
-  </div>
-{%endblock%}
->>>>>>> 3a45434f507b04cda85f2f44002807efe1a5b88c
