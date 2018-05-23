@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'hpemployee',
     'bootstrap3_datepicker',
+    'widget_tweaks'
 ]
 
 MIDDLEWARE = [

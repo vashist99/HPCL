@@ -1,0 +1,22 @@
+{%load static from staticfiles %}
+<!DOCTYPE HTML>
+<html lang="en" dir="ltr">
+
+    <head>
+    <meta charset="utf-8">
+        <title>homepage</title>
+      <link href="{%static 'style.css'%}"
+      type="text/css" rel="stylesheet">
+   </head>
+
+
+    <body>
+        <div id="whole">
+        <div id="header">
+            <img src="{%static 'newheader.png'%}" width="1250px">
+        {%block body%}
+
+        {%endblock%}
+         </div>
+      </body>
+  </html>

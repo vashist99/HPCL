@@ -10,7 +10,7 @@
 
 #body{
 
-    margin-top: 250px;
+
     font-family: Roboto,monospace;}
 
 .button {
@@ -25,17 +25,17 @@
     font-family:monospace;
 }
 
-input{
+input[type=text]{
 
     padding: 10px ;
     border-radius: 10px;
-    background-color: transparent;
+    background-color: blue;
     display: grid;
 
 
 }
 
-#calender{
+input[type=date]{
     padding: 5px;
     display:inline;
 }

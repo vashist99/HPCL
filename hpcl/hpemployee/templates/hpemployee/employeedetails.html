@@ -1,0 +1,41 @@
+{%extends 'base.html'%}
+{%block body%}
+  <div id="body" align="center">
+    <h1>Employee Details</h1>
+    <form  action="/employee/hpemployee/" method="post" enctype="multipart/form-data">
+      {%csrf_token%}
+      employee number:
+    {%for num in form%}
+      {{num}}
+    {%endfor%}
+
+      <input class="button" type="submit" value="Get Details">
+    </form>
+      <div >
+
+
+
+        <table border="1px">
+          <tr>
+            <td>Employee Number</td>
+            <td>Employee Name</td>
+            <td>employee location</td>
+            <td>Date of Birth</td>
+          </tr>
+          {% for num2 in forms%}
+          <tr>
+            <td>{{num2.employee_number}}</td>
+            <td>{{num2.employee_name}}</td>
+            <td>{{num2.location}}</td>
+            <td>{{num2.DOB}}</td>
+          </tr>
+            {% endfor %}
+        </table>
+
+
+
+
+
+      </div>
+  </div>
+{%endblock%}

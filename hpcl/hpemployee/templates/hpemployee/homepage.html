@@ -1,0 +1,19 @@
+{%extends 'base.html'%}
+{%load widget_tweaks%}
+{%block body%}
+            <div id="body">
+                <h2 align="center">
+                    ADD EMPLOYEE
+                </h2>
+                <div align="center">
+                <form  action="/employee/" method="post" enctype="multipart/form-data">
+                  {%csrf_token%}
+
+
+                  {{form}}
+
+                  <input type="submit" class="button" value="submit">
+
+              </form>
+
+{%endblock%}
