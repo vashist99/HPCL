@@ -11,7 +11,5 @@ class empdetails(forms.ModelForm):
         widgets = {
             'DOB': DateInput(attrs={'type': 'date'})}
 
-class query(forms.ModelForm):
-    class Meta:
-        model=models.hpemployee
-        fields=['employee_number']
+class query(forms.Form):
+    emp_no=forms.IntegerField()

@@ -33,7 +33,7 @@ def employeedetails(request):
     if request.method=='POST':
 
         num=query(request.POST)
-        var=request.POST['employee_number']
+        var=request.POST['emp_no']
         var1=int(var)
 
         if num.is_valid():
