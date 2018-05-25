@@ -1,0 +1,29 @@
+{%load static from staticfiles %}
+<!DOCTYPE HTML>
+<html lang="en" dir="ltr">
+
+    <head>
+    <meta charset="utf-8">
+        <title>homepage</title>
+      <link href="{%static 'style.css'%}"
+      type="text/css" rel="stylesheet">
+   </head>
+
+
+    <body>
+        <div id="whole">
+        <div id="header">
+
+            <img src="{%static 'newheader.png'%}" width="1250px">
+            <div id="menue" align="center">
+            <a href="{%url 'home'%}"></a><input class="menue" type="button" name="home" value="Home">
+            <a href="{%url 'about'%}"></a><input class="menue" type="button" name="about" value="About">
+            <a href="{%url 'emp_home'%}"></a><input class="menue" type="button" name="emp_home" value="Add Employee">
+            <a href="{%url 'emp_det'%}"></a><input class="menue" type="button" name="about" value="Employee Details">
+          </div>
+        {%block body%}
+
+        {%endblock%}
+         </div>
+      </body>
+  </html>

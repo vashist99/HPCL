@@ -1,39 +1,8 @@
-{%load static from staticfiles %}
-<!DOCTYPE HTML>
-<html lang="en" dir="ltr">
+{% extends 'base.html'%}
 
-    <head>
-    <meta charset="utf-8">
-        <title>homepage</title>
-      <link href="{%static 'style.css'%}"
-      type="text/css" rel="stylesheet">
-    </head>
+{%block body%}
+    <div id="body">
+<h1>This is the homepage</h1>
+</div>
 
-
-    <body>
-        <div id="whole">
-        <div id="header">
-            <img src="{%static 'newheader.png'%}">
-
-        </div>
-        <br>
-        <br>
-        <br>
-            <div id="body">
-                <h2 align="center">
-                    LOGIN
-                </h2>
-                <div id="input">
-                <p align="center">
-                    <input type="text" value="search..">
-                </p>
-                </div>
-                <p align="center">
-                    <button class="button">search</button>
-                </p>
-            </div>
-        </div>
-
-    </body>
-
-</html>
+{% endblock %}
