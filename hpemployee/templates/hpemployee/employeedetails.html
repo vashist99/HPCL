@@ -6,7 +6,7 @@
     <form  action="/employee/hpemployee/" method="post" enctype="multipart/form-data">
       {%csrf_token%}
       employee number:
-    {%for num in form%}
+    {%for num in form1%}
       {{num}}
     {%endfor%}
 
@@ -14,7 +14,7 @@
       <input class="button" name="delete" type="submit" value="Delete">
       <input class="button" name="update" type="submit" value="Update">
     </form>
-    
+
       <div >
 
 

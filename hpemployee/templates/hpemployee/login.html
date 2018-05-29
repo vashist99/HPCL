@@ -1,0 +1,13 @@
+{%extends 'base.html'%}
+{%block body%}
+<form class="login" action="{%url 'login'%}" method="post" enctype="multipart/form-data">
+  <div align="center">
+    {%csrf_token%}
+
+{{form}}
+
+<input type='submit' class='button' name="login" value="Login">
+</div>
+</form>
+
+{%endblock%}
