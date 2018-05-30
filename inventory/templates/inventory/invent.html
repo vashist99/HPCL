@@ -1,0 +1,40 @@
+{%extends 'base.html'%}
+{%block body%}
+<div class="whole" align="center">
+  <form class="inventory" action="{%url 'invent'%}" method="post" enctype="multipart/form-data">
+    {%csrf_token%}
+
+    <input type="submit" name="logout" value="LOGOUT" class='menue'/>
+    <input type="submit" name="see_all" value="View Inventory" class="menue"/>
+    {%for var in form%}
+    {{var}}
+    {%endfor%}
+    <input type="submit" name="see" value="View Item" class="menue"/>
+
+  </form>
+
+  <table border="1px">
+    <tr>
+      <td>Code</td>
+      <td>Name</td>
+      <td>Activity</td>
+      <td>Quantity</td>
+    </tr>
+    {%if see_all in request.POST%}
+     {%for all in key%}
+     <tr>
+
+     </tr>
+     {%endfor%}
+    {%endif%}
+    {%for query in forms%}
+
+    {%if see in request.POST%}
+    <tr>
+      
+    </tr>
+    {%endif%}
+    {%endfor%}
+  </table>
+
+</div>

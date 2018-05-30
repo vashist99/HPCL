@@ -12,7 +12,7 @@ def employeepage(request):
         form=empdetails(request.POST)
         var=request.POST['employee_number']
         var1=int(var)
-        var2=request.POST['employee_number']
+        var2=request.POST['Email_id']
         var3=request.POST['password1']
 
 
@@ -20,12 +20,14 @@ def employeepage(request):
             num=hpemployee.objects.filter(employee_number=var1)
             if not num:
                 var=form.save() #user is returned
-                user=User.objects.create_user(username=str(var),password=str(var3))
+                user=User.objects.create_superuser(username=str(var),password=str(var3),email=str(var2))
+
 
             else:
                 a=request.POST['employee_name']
                 b=request.POST['DOB']
                 c=request.POST['location_code']
+
                 hpemployee.objects.filter(employee_number=var1).update(employee_name=a,DOB=b,location_code=c)
             #return HttpResponse('Thanks!')
     else:
@@ -66,10 +68,13 @@ def employeedetails(request):
 def log(request):
     if request.method=='POST':
         form=custom_log(data=request.POST)
+        var=request.POST['username']
         if form.is_valid():
             user=form.get_user()
             login(request,user)
-            return redirect(request,'')
+            return redirect(request,'/inventory/')
+            request.session['0']=user.id
+
 
 
     else:
