@@ -6,11 +6,14 @@
 
     margin-bottom: 20px;
 
+    font-weight:900;
+
+
 }
 
 #body{
 
-    margin-top: 250px;
+
     font-family: Roboto,monospace;}
 
 .button {
@@ -20,16 +23,31 @@
     padding: 10px 20px;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
+    display: inline;
     font-size: 16px;
     font-family:monospace;
 }
 
-input[type=text]{
+input{
+
     padding: 10px ;
     border-radius: 10px;
     background-color: transparent;
     display: grid;
+
+
+}
+
+.menue{  background-color:crimson;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display:inline-block;
+  font-size: 16px;
+  font-family:monospace;
+  align-self: center;
 
 
 }

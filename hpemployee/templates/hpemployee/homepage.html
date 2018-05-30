@@ -1,18 +1,19 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-    <h1>This is the employee login page</h1>
-     <div class="employees">
-       {%for var in key%}
-       <div class="seconddiv">
-         <h2>{{var.employee_name}}</h2>
-         <h3>{{var.location}}</h3>
-       </div>
-       {%endfor%}
-     </div>
-  </body>
-</html>
+{%extends 'base.html'%}
+{%load widget_tweaks%}
+{%block body%}
+            <div id="body">
+                <h2 align="center">
+                    SIGN-IN
+                </h2>
+                <div align="center">
+                <form  action="/employee/" method="post" enctype="multipart/form-data">
+
+
+
+                  {{form}}
+                         {%csrf_token%}
+                  <input type="submit" class="button" value="submit">
+
+              </form>
+
+{%endblock%}
