@@ -5,5 +5,5 @@ from . import views
 
 
 urlpatterns = [
-url(r'$',views.items,name="invent"),
+url(r'$',views.home,name="invent"),
 ]

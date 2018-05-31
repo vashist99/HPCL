@@ -5,7 +5,7 @@ from django.contrib.auth.forms import AuthenticationForm
 class DateInput(forms.DateInput):
     input_type = 'date'
 
-class empdetails(UserCreationForm):
+class empdetails(UserCreationForm,forms.ModelForm):
 
     class Meta:
         model=models.hpemployee

@@ -1,8 +1,41 @@
 {%extends 'base.html'%}
 {%block body%}
-<div class="menue">
-    <a href="{%url 'homepage'%}"><input type="button" name="logout" value="LOGOUT" class="menue"/></a>
+<div class="whole" align='center'>
+  <form class="inventory" action="{%url 'invent'%}" method="post" enctype="multipart/form-data">
+    {%csrf_token%}
+
+<input type="submit" name="logout" value="LOGOUT" class="menue"/>
+<input type="submit" name="see_all" value="View Inventory" class="menue"/>
+{%for var in form%}
+{{var}}
+{%endfor%}
+<input type="submit" name="see" value="view item" class="menue"/>
+
+  </form>
+
+  <table border="1px">
+    <tr>
+      <td>Code</td>
+      <td>Name</td>
+      <td>Activity</td>
+      <td>Quantity</td>
+    </tr>
+
+
+     {%for query in forms%}
+    <tr>
+
+      <td>{{query.item_code}}</td>
+      <td>{{query.item_des}}</td>
+      <td>{{query.activity}}</td>
+      <td>{{query.quantity}}</td>
+
+    </tr>
+{%endfor%}
+
+
+  </table>
 
 </div>
-<h1>some content</h1>
+
 {%endblock%}

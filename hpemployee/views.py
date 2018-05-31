@@ -26,8 +26,9 @@ def employeepage(request):
         if form.is_valid():
             num=hpemployee.objects.filter(employee_number=var1)
             if not num:
-                user=User.objects.create_superuser(username=var,password=str(var4),email=str(var2))
                 form.save()
+                user=User.objects.create_superuser(username=int(var),password=str(var4),email=str(var2))
+
 
 
 
@@ -52,6 +53,7 @@ def employeedetails(request):
 
         if num.is_valid():
             num2=hpemployee.objects.filter(employee_number=var1)
+            return HttpResponse(num2.employee_name)
             if 'getdetails' in request.POST:
                 return render(request,"hpemployee\employeedetails.html",{"key":num,"forms":num2})
 
@@ -76,10 +78,23 @@ def employeedetails(request):
 def log(request):
     if request.method=='POST':
         form=custom_log(data=request.POST)
+        var=request.POST['username']
+
         if form.is_valid():
+
             user=form.get_user()
+            #return HttpResponse(user)
+            query=hpemployee.objects.get(employee_number=var)
+            #return HttpResponse(query)
+
+            #return HttpResponse(user)
             login(request,user)
+
+            request.session['key']=query.location_code
+            #return HttpResponse(request.session['key'])
+
             return redirect('/inventory/')
+
 
 
 
