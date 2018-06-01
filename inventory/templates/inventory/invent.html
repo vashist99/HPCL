@@ -1,6 +1,15 @@
 {%extends 'base.html'%}
 {%block body%}
 <div class="whole" align='center'>
+  <div class="info" align="left">
+    {% for q1 in data %}
+
+    {{q1.employee_name}}<br>
+    {{q1.employee_number}}<br>
+    {{q1.Email_id}}<br>
+    {{q1.location}}
+    {%endfor%}
+  </div>
   <form class="inventory" action="{%url 'invent'%}" method="post" enctype="multipart/form-data">
     {%csrf_token%}
 
@@ -22,6 +31,23 @@
     </tr>
 
 
+
+{%if 'see_all' in request.POST%}
+
+     {%for all in ha%}
+    <tr>
+
+      <td>{{all.item_code}}</td>
+      <td>{{all.item_des}}</td>
+      <td>{{all.activity}}</td>
+      <td>{{all.quantity}}</td>
+
+    </tr>
+{%endfor%}
+{%endif%}
+
+{%if 'see' in request.POST%}
+
      {%for query in forms%}
     <tr>
 
@@ -32,6 +58,7 @@
 
     </tr>
 {%endfor%}
+{%endif%}
 
 
   </table>
