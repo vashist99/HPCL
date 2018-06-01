@@ -74,7 +74,7 @@ def log(request):
             query=hpemployee.objects.get(employee_number=var)
             login(request,user)
             request.session['key']=query.location_code
-
+            request.session['key1']=query.employee_number
             return redirect('/inventory/')
 
 
