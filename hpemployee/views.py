@@ -14,17 +14,14 @@ def employeepage(request):
         var1=int(var)
         var2=request.POST['Email_id']
         var3=request.POST['password1']
-        var4=request.POST['location_code']
+
 
 
         if form.is_valid():
-            inst=hpemployee()
+
             num=hpemployee.objects.filter(employee_number=var1)
             if not num:
-                if var4==10141:
-                    inst.location='Data Center Hyderabad'
-                elif var4==10807:
-                    inst.location='Sewree, Mumbai'    
+
                 use=form.save() #user is returned
                 user=User.objects.create_superuser(username=var,password=str(var3),email=str(var2))
 
