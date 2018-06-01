@@ -8,6 +8,7 @@ class hpemployee(AbstractBaseUser):
     employee_name=models.CharField(max_length=100)
     password=models.CharField(max_length=100,blank=True)
     location_code=models.IntegerField()
+    location=models.CharField(max_length=100,blank=True)
     employee_number=models.IntegerField()
     date=models.DateTimeField(auto_now_add=True)
     DOB=models.DateField()
