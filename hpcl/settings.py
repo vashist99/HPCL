@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'hpemployee',
+    'inventory',
 
 
 ]
@@ -126,4 +127,3 @@ STATICFILES_DIRS=[
 os.path.join(BASE_DIR,'assets'),
 
 ]
-SESSION_COOKIE_AGE=14400

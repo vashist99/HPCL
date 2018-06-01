@@ -6,11 +6,12 @@
                     ADD EMPLOYEE
                 </h2>
                 <div align="center">
-                <form  action="/employee/" method="post" enctype="multipart/form-data">
-                  {%csrf_token%}
+                <form  action="{%url 'emp_home'%}" method="post" enctype="multipart/form-data">
+
 
 
                   {{form}}
+                     {%csrf_token%}
 
                   <input type="submit" class="button" value="submit">
 

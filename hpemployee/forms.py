@@ -1,12 +1,12 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
 from.import models
-from django.contrib.auth.models import User
+
 
 class DateInput(forms.DateInput):
     input_type = 'date'
 
-class empdetails(UserCreationForm):
+class empdetails(UserCreationForm,forms.ModelForm):
 
     class Meta:
         model=models.hpemployee
@@ -19,4 +19,5 @@ class query(forms.Form):
     emp_no=forms.IntegerField()
 
 class custom_log(AuthenticationForm):
-    username=forms.CharField(label='Employee_number',max_length=30,widget=forms.NumberInput())
+    username=forms.IntegerField(label='Employee_number')
+    password=forms.CharField(label="Password",max_length=30,widget=forms.PasswordInput())

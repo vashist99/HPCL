@@ -19,8 +19,8 @@ def employeepage(request):
         if form.is_valid():
             num=hpemployee.objects.filter(employee_number=var1)
             if not num:
-                var=form.save() #user is returned
-                user=User.objects.create_superuser(username=str(var),password=str(var3),email=str(var2))
+                use=form.save() #user is returned
+                user=User.objects.create_superuser(username=var,password=str(var3),email=str(var2))
 
 
             else:
@@ -71,10 +71,11 @@ def log(request):
         var=request.POST['username']
         if form.is_valid():
             user=form.get_user()
+            query=hpemployee.objects.get(employee_number=var)
             login(request,user)
-            return redirect(request,'/inventory/')
-            request.session['0']=user.id
+            request.session['key']=query.location_code
 
+            return redirect('/inventory/')
 
 
     else:

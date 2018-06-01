@@ -20,21 +20,17 @@
       <td>Activity</td>
       <td>Quantity</td>
     </tr>
-    {%if see_all in request.POST%}
-     {%for all in key%}
-     <tr>
 
-     </tr>
-     {%endfor%}
-    {%endif%}
-    {%for query in forms%}
-
-    {%if see in request.POST%}
-    <tr>
-      
+{%for query in forms%}
+   <tr>
+      <td>{{query.item_code}}</td>
+      <td>{{query.item_des}}</td>
+      <td>{{query.activity}}</td>
+      <td>{{query.quantity}}</td>
     </tr>
-    {%endif%}
-    {%endfor%}
+{% endfor %}
+
   </table>
 
 </div>
+{%endblock%}
