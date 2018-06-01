@@ -24,7 +24,8 @@ def home(request):
                     query=items.objects.filter(item_des=des).filter(locode=locate)
                     return render(request,'inventory/invent.html',{'data':q1,'form':var,'forms':query})
             elif 'see_all' in request.POST:
-                all=items.objects.all()
+                locate=request.session['key']
+                all=items.objects.filter(locode=locate)
                 return render(request,'inventory/invent.html',{'data':q1,'form':var,'ha':all})
         else:
             var=name()
