@@ -1,15 +1,8 @@
 from django.db import models
-from datetime import datetime,date
+from datetime import date
 from django.core.validators import ValidationError
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.forms import User
 from django.contrib.auth.models import AbstractBaseUser
-
-
-
-
-
-
 # Create your models here.
 class hpemployee(AbstractBaseUser):
     employee_name=models.CharField(max_length=100)

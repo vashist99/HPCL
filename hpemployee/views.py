@@ -3,10 +3,8 @@ from django.http import HttpResponse
 from .models import hpemployee
 from .forms import empdetails,query,custom_log
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.models import User
 from django.contrib.auth import login
-
-
+from django.contrib.auth.models import User
 
 def employeepage(request):
     #var = hpemployee.objects.all().order_by("employee_name") #this was to implement models
@@ -46,16 +44,17 @@ def employeepage(request):
 def employeedetails(request):
 
     if request.method=='POST':
+        #return HttpResponse(request.POST)
 
         num=query(request.POST)
-        var=request.POST['empno']
+        var=request.POST['emp_no']
         var1=int(var)
 
         if num.is_valid():
             num2=hpemployee.objects.filter(employee_number=var1)
             #return HttpResponse(num2.employee_name)
             if 'getdetails' in request.POST:
-                return render(request,"hpemployee\employeedetails.html",{"key":num,"forms":num2})
+                return render(request,"hpemployee\employeedetails.html",{"form1":num,"forms":num2})
 
             elif 'delete' in request.POST:
                 num2.delete()
@@ -63,7 +62,7 @@ def employeedetails(request):
 
             elif 'update' in request.POST:
                 num=empdetails()
-                return render(request,"hpemployee\homepage.html",{"form":num})
+                return render(request,"hpemployee\homepage.html",{"form1":num})
 
 
         else:
@@ -72,7 +71,7 @@ def employeedetails(request):
     else:
         num=query()
 
-    return render(request,"hpemployee\employeedetails.html",{"key":num})
+    return render(request,"hpemployee\employeedetails.html",{"form1":num})
 
 
 def log(request):

@@ -1,17 +1,18 @@
 {%extends 'base.html'%}
-{%load widget_tweaks%}
+
 {%block body%}
             <div id="body">
                 <h2 align="center">
-                    SIGN-IN
+                    ADD EMPLOYEE
                 </h2>
                 <div align="center">
-                <form  action="/employee/" method="post" enctype="multipart/form-data">
+                <form  action="{%url 'emp_home'%}" method="post" enctype="multipart/form-data">
 
 
 
                   {{form}}
-                         {%csrf_token%}
+                     {%csrf_token%}
+
                   <input type="submit" class="button" value="submit">
 
               </form>

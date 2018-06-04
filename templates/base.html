@@ -10,22 +10,21 @@
    </head>
 
 
-    <body >
-
-  
+    <body>
+        <div id="whole">
         <div id="header">
+
             <img src="{%static 'newheader.png'%}" width="1250px">
-        <div  id="menue" align="center">
-          <a href="{% url 'homepage'%}"><input type="button" name="home" value="Home" class="menue" ></a>
-          <a href="{%url 'about'%}"><input type="button" name="About" value="About" class="menue"/></a>
-          <a href="{%url 'emp_homepage'%}"><input type="button" name="Add_employee" value="SIGN-IN" class="menue"/></a>
-          <a href="{%url 'emp_details'%}"><input type="button" name="employee_details" value="employee details" class="menue"/></a>
-          <a href="{%url 'login'%}"><input type="button" name="login" value="LOGIN" class="menue"/></a>
-        </div>
+            <div id="menue" align="center">
+            <a href="{%url 'home'%}"><input class="menue" type="button" name="home" value="Home"></a>
+            <a href="{%url 'about'%}"><input class="menue" type="button" name="about" value="About"></a>
+            <a href="{%url 'emp_home'%}"><input class="menue" type="button" name="emp_home" value="Sign Up"></a>
+            <a href="{%url 'emp_det'%}"><input class="menue" type="button" name="about" value="Employee Details"></a>
+            <a href="{%url 'login'%}"><input class="menue" type="button" name="login" value="Login"></a>
+          </div>
         {%block body%}
 
         {%endblock%}
          </div>
-
       </body>
   </html>
