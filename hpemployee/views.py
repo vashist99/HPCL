@@ -17,7 +17,7 @@ def employeepage(request):
         var4=request.POST.get('password1')
         var1=int(var)
         var2=request.POST['Email_id']
-    
+
         user=hpemployee(request.POST)
         #return HttpResponse(request.POST)
 
@@ -31,9 +31,6 @@ def employeepage(request):
 
                 form.save()
                 user=User.objects.create_superuser(username=int(var),password=str(var4),email=str(var2))
-
-
-
 
             else:
                 a=request.POST['employee_name']
@@ -56,7 +53,7 @@ def employeedetails(request):
 
         if num.is_valid():
             num2=hpemployee.objects.filter(employee_number=var1)
-            return HttpResponse(num2.employee_name)
+            #return HttpResponse(num2.employee_name)
             if 'getdetails' in request.POST:
                 return render(request,"hpemployee\employeedetails.html",{"key":num,"forms":num2})
 
@@ -89,7 +86,6 @@ def log(request):
             #return HttpResponse(user)
             query=hpemployee.objects.get(employee_number=var)
             #return HttpResponse(query)
-
             #return HttpResponse(user)
             login(request,user)
 

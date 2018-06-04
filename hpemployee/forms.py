@@ -9,7 +9,7 @@ class empdetails(UserCreationForm,forms.ModelForm):
 
     class Meta:
         model=models.hpemployee
-        fields=['employee_name','employee_number','DOB','location_code','location','Email_id','Phone_Number']
+        fields=['employee_name','employee_number','DOB','location_code','location','status','Email_id','Phone_Number']
         widgets = {
             'DOB': DateInput(attrs={'type': 'date'})}
 

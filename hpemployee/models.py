@@ -21,6 +21,7 @@ class hpemployee(AbstractBaseUser):
     DOB=models.DateField(max_length=100)
     Email_id=models.EmailField(max_length=100)
     Phone_Number=models.IntegerField()
+    status=models.CharField(max_length=100,blank=True)
     last_login=models.CharField(max_length=100,default=" ")
 
 
