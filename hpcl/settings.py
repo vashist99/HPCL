@@ -38,8 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'hpemployee',
-    'bootstrap3_datepicker',
-    'widget_tweaks',
     'inventory',
 ]
 
