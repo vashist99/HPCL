@@ -15,7 +15,7 @@
 
 <input type="submit" name="logout" value="LOGOUT" class="menue"/>
 <input type="submit" name="see_all" value="View Inventory" class="menue"/>
-{%for var in form%}
+{%for var in form1%}
 {{var}}
 {%endfor%}
 <input type="submit" name="see" value="view item" class="menue"/>
@@ -28,6 +28,8 @@
       <td>Name</td>
       <td>Activity</td>
       <td>Quantity</td>
+      <td>Units</td>
+      <td>Cost</td>
     </tr>
 
 
@@ -41,6 +43,8 @@
       <td>{{all.item_des}}</td>
       <td>{{all.activity}}</td>
       <td>{{all.quantity}}</td>
+      <td>{{all.unit}}</td>
+      <td>{{all.cost}}</td>
 
     </tr>
 {%endfor%}
@@ -55,6 +59,8 @@
       <td>{{query.item_des}}</td>
       <td>{{query.activity}}</td>
       <td>{{query.quantity}}</td>
+      <td>{{query.unit}}</td>
+      <td>{{query.cost}}</td>
 
     </tr>
 {%endfor%}
@@ -62,6 +68,25 @@
 
 
   </table>
+  <div class="human">
+{%for q1 in data%}
+{%ifequal q1.status 'HR'%}
+<form action="{%url 'invent'%}" method="post" enctype="multipart/form-data">
+{%for hr in form%}
+<div class="hr">
+    {{hr}}
+</div>
+{%endfor%}
+{%csrf_token%}
+<input type="submit" name="update" value="update database" class="menue">
+
+</form>
+{%endifequal%}
+{%endfor%}
+</div>
+
+
+
 
 </div>
 

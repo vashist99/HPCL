@@ -22,7 +22,7 @@ class hpemployee(AbstractBaseUser):
     Email_id=models.EmailField(max_length=100)
     Phone_Number=models.IntegerField()
     status=models.CharField(max_length=100,blank=True)
-    last_login=models.CharField(max_length=100,default=" ")
+    last_login=models.CharField(max_length=100,default=" ",blank=True)
 
 
     var=UserCreationForm()
