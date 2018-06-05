@@ -6,7 +6,7 @@ class items(models.Model):
     item_des=models.CharField(max_length=100)
     activity=models.CharField(max_length=100)
     quantity=models.IntegerField()
-    locode=models.IntegerField()
+    locode=models.IntegerField(null=True)
     unit=models.CharField(max_length=100,blank=True)
     visibility=models.CharField(max_length=100,blank=True)
     cost=models.IntegerField(null=True)

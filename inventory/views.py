@@ -24,17 +24,17 @@ def home(request):
                 elif 'see' in request.POST:
                     if 'key' in request.session:
                         locate=request.session['key']
-                        query=items.objects.filter(item_des=des).filter(locode=locate).filter(visibility='yes').filter(activity='active')
+                        query=items.objects.filter(item_des=des).filter(locode=locate)
                         return render(request,'inventory/invent.html',{'data':q1,'form1':var,'forms':query})
                 elif 'see_all' in request.POST:
                     locate=request.session['key']
-                    all=items.objects.filter(locode=locate).filter(visibility='yes')
+                    all=items.objects.filter(locode=locate).filter(visibility='yes').filter(visibility='yes').filter(activity='active')
                     return render(request,'inventory/invent.html',{'data':q1,'form1':var,'ha':all})
             else:
                 var=name()
                 return render(request,'inventory/invent.html',{'data':q1,'form1':var})
         elif q2.status=='HR':
-            #return HttpResponse(q2.status)
+
             if request.method=='POST':
                 var=name()
                 form=HR()
@@ -61,7 +61,6 @@ def home(request):
                             form.save()
                             items.objects.filter(item_des=i).update(locode=request.session['key'])
                     else:
-
                         b=request.POST['item_code']
                         c=request.POST['activity']
                         d=request.POST['quantity']
@@ -77,4 +76,4 @@ def home(request):
             else:
                 var=name()
                 hr=HR()
-                return render(request,'inventory/invent.html',{'data':q1,'form1':var,'HR':hr})
+            return render(request,'inventory/invent.html',{'data':q1,'form1':var,'HR':form})
