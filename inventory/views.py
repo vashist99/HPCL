@@ -36,26 +36,30 @@ def home(request):
         elif q2.status=='HR':
             #return HttpResponse(q2.status)
             if request.method=='POST':
-                des=request.POST['item_name']
-                var=name(request.POST)
-                hr=HR(request.POST)
+                var=name()
+                form=HR()
                 if 'logout' in request.POST:
                     logout(request)
                     return redirect('/employee/login/')
                 elif 'see' in request.POST:
+                    var=name(request.POST)
+                    des=request.POST['item_name']
                     if 'key' in request.session:
                         locate=request.session['key']
                         query=items.objects.filter(item_des=des).filter(locode=locate)
-                        return render(request,'inventory/invent.html',{'data':q1,'form1':var,'forms':query,'form':hr})
+                        return render(request,'inventory/invent.html',{'data':q1,'form1':var,'forms':query,'HR':form})
                 elif 'see_all' in request.POST:
                     locate=request.session['key']
                     all=items.objects.filter(locode=locate)
-                    return render(request,'inventory/invent.html',{'data':q1,'form1':var,'ha':all,'form':hr})
+                    return render(request,'inventory/invent.html',{'data':q1,'form1':var,'ha':all,'HR':form})
                 elif 'update' in request.POST:
+                    form=HR(request.POST)
                     i=request.POST['item_des']
                     check=items.objects.filter(item_des=i)
                     if not check:
-                        hr.save()
+                        if 'key' in request.session:
+                            form.save()
+                            items.objects.filter(item_des=i).update(locode=request.session['key'])
                     else:
 
                         b=request.POST['item_code']
@@ -73,4 +77,4 @@ def home(request):
             else:
                 var=name()
                 hr=HR()
-                return render(request,'inventory/invent.html',{'data':q1,'form1':var,'form':hr})
+                return render(request,'inventory/invent.html',{'data':q1,'form1':var,'HR':hr})

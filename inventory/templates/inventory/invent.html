@@ -72,9 +72,9 @@
 {%for q1 in data%}
 {%ifequal q1.status 'HR'%}
 <form action="{%url 'invent'%}" method="post" enctype="multipart/form-data">
-{%for hr in form%}
+{%for form in HR%}
 <div class="hr">
-    {{hr}}
+    {{form}}
 </div>
 {%endfor%}
 {%csrf_token%}
