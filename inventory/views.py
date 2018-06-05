@@ -47,11 +47,11 @@ def home(request):
                     if 'key' in request.session:
                         locate=request.session['key']
                         query=items.objects.filter(item_des=des).filter(locode=locate)
-                        return render(request,'inventory/invent.html',{'data':q1,'form1':var,'forms':query,'HR':form})
+                        return render(request,'inventory/invent.html',{'data':q1,'form1':var,'forms':query,'form':form})
                 elif 'see_all' in request.POST:
                     locate=request.session['key']
                     all=items.objects.filter(locode=locate)
-                    return render(request,'inventory/invent.html',{'data':q1,'form1':var,'ha':all,'HR':form})
+                    return render(request,'inventory/invent.html',{'data':q1,'form1':var,'ha':all,'form':form})
                 elif 'update' in request.POST:
                     form=HR(request.POST)
                     i=request.POST['item_des']
@@ -75,5 +75,5 @@ def home(request):
 
             else:
                 var=name()
-                hr=HR()
-            return render(request,'inventory/invent.html',{'data':q1,'form1':var,'HR':form})
+                form=HR()
+            return render(request,'inventory/invent.html',{'data':q1,'form1':var,'form':form})

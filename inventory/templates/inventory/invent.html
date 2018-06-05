@@ -72,11 +72,9 @@
 {%for q1 in data%}
 {%ifequal q1.status 'HR'%}
 <form action="{%url 'invent'%}" method="post" enctype="multipart/form-data">
-{%for form in HR%}
-<div class="hr">
+
     {{form}}
-</div>
-{%endfor%}
+
 {%csrf_token%}
 <input type="submit" name="update" value="update database" class="menue">
 
