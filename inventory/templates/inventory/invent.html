@@ -13,10 +13,14 @@
   <form class="inventory" action="{%url 'invent'%}" method="post" enctype="multipart/form-data">
     {%csrf_token%}
 
+
 <input type="submit" name="logout" value="LOGOUT" class="menue"/>
 <input type="submit" name="see_all" value="View Inventory" class="menue"/>
 {%for var in form1%}
+{{form.management_form}}
 {{var}}
+
+
 {%endfor%}
 <input type="submit" name="see" value="view item" class="menue"/>
 

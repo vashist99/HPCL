@@ -1,12 +1,16 @@
 from django import forms
+from django.forms.formsets import BaseFormSet
 from.import models
 
 class DateInput(forms.DateInput):
     input_type = 'date'
 
 
-class name(forms.Form):
-    item_name=forms.CharField(max_length=100,required=False)
+class name(forms.Form,BaseFormSet):
+    item_name=forms.CharField(max_length=100)
+
+
+
 
 class HR(forms.ModelForm):
     class Meta:

@@ -5,6 +5,8 @@ from django.http import HttpResponse
 from .models import items
 from .forms import name,HR
 from hpemployee.models import hpemployee
+from django.forms.formsets import formset_factory
+name=formset_factory(name)
 
 @login_required(login_url='/employee/login/')
 def home(request):
@@ -16,12 +18,18 @@ def home(request):
 
         if q2.status=='NHR':
             if request.method=='POST':
-                des=request.POST['item_name']
-                var=name(request.POST)
+                var=name()
+                #return HttpResponse(request.POST)
                 if 'logout' in request.POST:
                     logout(request)
                     return redirect('/employee/login/')
                 elif 'see' in request.POST:
+                    data={'form-TOTAL_FORMS':u'3',
+                            'form-INITIAL_FORMS':u'1',
+                              'form-MAX_NUM_FORMS':u'',}
+                    des=request.POST['form-0-item_name']
+
+                    var=name(data)
                     if 'key' in request.session:
                         locate=request.session['key']
                         query=items.objects.filter(item_des=des).filter(locode=locate)
@@ -32,7 +40,8 @@ def home(request):
                     return render(request,'inventory/invent.html',{'data':q1,'form1':var,'ha':all})
             else:
                 var=name()
-                return render(request,'inventory/invent.html',{'data':q1,'form1':var})
+            return render(request,'inventory/invent.html',{'data':q1,'form1':var})
+
         elif q2.status=='HR':
 
             if request.method=='POST':
