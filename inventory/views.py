@@ -5,8 +5,8 @@ from django.http import HttpResponse
 from .models import items
 from .forms import name,HR
 from hpemployee.models import hpemployee
-from django.forms.formsets import formset_factory
-name=formset_factory(name)
+from django.forms.formsets import formset_factory,BaseFormSet
+name=formset_factory(name,formset=BaseFormSet,max_num=5,min_num=1)
 
 @login_required(login_url='/employee/login/')
 def home(request):
@@ -18,15 +18,16 @@ def home(request):
 
         if q2.status=='NHR':
             if request.method=='POST':
-                var=name()
-                #return HttpResponse(request.POST)
+                #return HttpResponse(name.__init__())
                 if 'logout' in request.POST:
                     logout(request)
                     return redirect('/employee/login/')
                 elif 'see' in request.POST:
-                    data={'form-TOTAL_FORMS':u'3',
-                            'form-INITIAL_FORMS':u'1',
-                              'form-MAX_NUM_FORMS':u'',}
+                    data={'form-TOTAL_FORMS':'3',
+                          'form-INITIAL_FORMS':'2',
+                          'form-MAX_NUM_FORMS':'',
+                          'form-MIN_NUM_FORMS':'',
+                          'form-0-item_name':'1st Item',}
                     des=request.POST['form-0-item_name']
 
                     var=name(data)
@@ -39,13 +40,18 @@ def home(request):
                     all=items.objects.filter(locode=locate).filter(visibility='yes').filter(visibility='yes').filter(activity='active')
                     return render(request,'inventory/invent.html',{'data':q1,'form1':var,'ha':all})
             else:
-                var=name()
+                #return HttpResponse(name.__init__())
+                data={'form-TOTAL_FORMS':'3',
+                      'form-INITIAL_FORMS':'2',
+                      'form-MAX_NUM_FORMS':'5',
+                      'form-MIN_NUM_FORMS':'1',}
+                var=name(data)
             return render(request,'inventory/invent.html',{'data':q1,'form1':var})
 
         elif q2.status=='HR':
 
             if request.method=='POST':
-                var=name()
+                return
                 form=HR()
                 if 'logout' in request.POST:
                     logout(request)

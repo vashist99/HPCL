@@ -6,8 +6,8 @@ class DateInput(forms.DateInput):
     input_type = 'date'
 
 
-class name(forms.Form,BaseFormSet):
-    item_name=forms.CharField(max_length=100)
+class name(forms.Form):
+    self.item_name=forms.CharField(max_length=100)
 
 
 
