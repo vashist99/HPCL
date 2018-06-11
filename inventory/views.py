@@ -6,7 +6,7 @@ from .models import items
 from .forms import name,HR
 from hpemployee.models import hpemployee
 from django.forms.formsets import formset_factory,BaseFormSet
-name=formset_factory(name,formset=BaseFormSet,max_num=5,min_num=1)
+variable=formset_factory(name,formset=BaseFormSet,max_num=5,min_num=2)
 
 @login_required(login_url='/employee/login/')
 def home(request):
@@ -15,7 +15,11 @@ def home(request):
         use=request.session['key1']
         q1=hpemployee.objects.filter(employee_number=use)
         q2=hpemployee.objects.get(employee_number=use)
-
+        data={'form-TOTAL_FORMS':'3',
+              'form-INITIAL_FORMS':'2',
+              'form-MAX_NUM_FORMS':'5',
+              'form-MIN_NUM_FORMS':'2',
+              }
         if q2.status=='NHR':
             if request.method=='POST':
                 #return HttpResponse(name.__init__())
@@ -23,18 +27,26 @@ def home(request):
                     logout(request)
                     return redirect('/employee/login/')
                 elif 'see' in request.POST:
-                    data={'form-TOTAL_FORMS':'3',
-                          'form-INITIAL_FORMS':'2',
-                          'form-MAX_NUM_FORMS':'',
-                          'form-MIN_NUM_FORMS':'',
-                          'form-0-item_name':'1st Item',}
-                    des=request.POST['form-0-item_name']
 
-                    var=name(data)
-                    if 'key' in request.session:
-                        locate=request.session['key']
-                        query=items.objects.filter(item_des=des).filter(locode=locate)
-                        return render(request,'inventory/invent.html',{'data':q1,'form1':var,'forms':query})
+                    data2={
+                         'form-0-item_name':request.POST,
+                         'form-1-item_name':'',
+                         'form-2-item_name':''
+                    }
+                    #return HttpResponse(request.POST)
+                    for key in data2:
+                        #return HttpResponse(data2[key])
+                        #return HttpResponse(key)
+                        if 'key' in request.session:
+                            des=request.POST[key]
+                            return HttpResponse(des)
+                            var=variable(data)
+                            locate=request.session['key']
+                            query=items.objects.filter(item_des=des).filter(locode=locate)
+                            return HttpResponse(query)
+                            return render(request,'inventory/invent.html',{'data':q1,'form1':var,'forms':query})
+
+
                 elif 'see_all' in request.POST:
                     locate=request.session['key']
                     all=items.objects.filter(locode=locate).filter(visibility='yes').filter(visibility='yes').filter(activity='active')
@@ -44,8 +56,8 @@ def home(request):
                 data={'form-TOTAL_FORMS':'3',
                       'form-INITIAL_FORMS':'2',
                       'form-MAX_NUM_FORMS':'5',
-                      'form-MIN_NUM_FORMS':'1',}
-                var=name(data)
+                      'form-MIN_NUM_FORMS':'2',}
+                var=variable(data)
             return render(request,'inventory/invent.html',{'data':q1,'form1':var})
 
         elif q2.status=='HR':

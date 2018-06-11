@@ -7,7 +7,7 @@ class DateInput(forms.DateInput):
 
 
 class name(forms.Form):
-    self.item_name=forms.CharField(max_length=100)
+    item_name=forms.CharField(max_length=100)
 
 
 
