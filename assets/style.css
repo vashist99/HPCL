@@ -56,5 +56,5 @@ input{
 .hr{
 
 
-  display:flex;
+  display:table-row;
 }

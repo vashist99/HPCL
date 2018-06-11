@@ -79,13 +79,19 @@
 <br>------------------- ONLY FOR H.R DEPARTMENT PURPOSES------------------------<br><br><br>
 <form class="hr" action="{%url 'invent'%}" method="post" enctype="multipart/form-data">
 {%for form in form%}
-    {{form.management_form}}
+{{form}}
+{%endfor%}
+
+{%for r in forms%}
+    {{r.management_form}}
     <table>
     <tr class="item_info">
-      <td>{{form.as_table}}</td>
+      <td></td>
     </tr>
     </table>
-<br>------------------------------------------------------------------------------<br>
+{{r.as_table}}
+<br>
+<br>
 {%endfor%}
 {%csrf_token%}
 <input type="submit" name="update" value="update database" class="menue">
@@ -94,9 +100,6 @@
 {%endifequal%}
 {%endfor%}
 </div>
-
-
-
 
 </div>
 
