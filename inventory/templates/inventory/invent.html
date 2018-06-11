@@ -53,8 +53,9 @@
 {%endif%}
 
 {%if 'see' in request.POST%}
+{%for query in forms%}
 
-     {%for query in forms%}
+
     <tr>
 
       <td>{{query.item_code}}</td>
@@ -65,7 +66,7 @@
       <td>{{query.cost}}</td>
 
     </tr>
-{%endfor%}
+    {%endfor%}
 {%endif%}
 
 
@@ -73,10 +74,19 @@
   <div class="human">
 {%for q1 in data%}
 {%ifequal q1.status 'HR'%}
+<br>
+<br>
+<br>------------------- ONLY FOR H.R DEPARTMENT PURPOSES------------------------<br><br><br>
 <form action="{%url 'invent'%}" method="post" enctype="multipart/form-data">
+{%for form in form%}
+    {{form.management_form}}
+    <table>
+    <tr>
+      <td>{{form}}</td>
+    </tr>
+    </table>
 
-    {{form}}
-
+{%endfor%}
 {%csrf_token%}
 <input type="submit" name="update" value="update database" class="menue">
 
