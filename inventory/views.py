@@ -6,8 +6,9 @@ from .models import items
 from .forms import name,HR
 from hpemployee.models import hpemployee
 from django.forms.formsets import formset_factory,BaseFormSet
+from django.forms.models import modelformset_factory
 variable=formset_factory(name,formset=BaseFormSet,max_num=5,min_num=2)
-variable1=formset_factory(HR,formset=BaseFormSet,max_num=10,min_num=5)
+variable1=modelformset_factory(items,form=HR,max_num=10,min_num=5,exclude=())
 
 @login_required(login_url='/employee/login/')
 def home(request):
@@ -103,11 +104,11 @@ def home(request):
                         'form-0-item_code':request.POST,
                         'form-0-activity':request.POST,
                         'form-0-quantity':request.POST,
-                        'form-0-units':request.POST,
+                        'form-0-unit':request.POST,
                         'form-0-visibility':request.POST,
                         'form-0-cost':request.POST,
                         'form-0-pono':request.POST,
-                        'form-0-podate':request.POST,
+                        'form-0-pdate':request.POST,
                         'form-0-inno':request.POST,
                         'form-0-rdate':request.POST}
 

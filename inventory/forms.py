@@ -16,8 +16,7 @@ class HR(forms.ModelForm):
     class Meta:
         model=models.items
         fields={'item_des','item_code','activity','quantity','unit','visibility','cost','pono','pdate','inno','rdate'}
-
-
+        exclude=('field_id',)
         widgets = {
             'pdate': DateInput(attrs={'type': 'date'})
             ,'rdate': DateInput(attrs={'type': 'date'})}
