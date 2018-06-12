@@ -74,26 +74,39 @@
 <br>------------------- ONLY FOR H.R DEPARTMENT PURPOSES------------------------<br><br><br>
 <form class="hr" action="{%url 'invent'%}" method="post" enctype="multipart/form-data">
 {%csrf_token%}
-  <div class="reciept">
-{%for form in form%}
-{{form}}
-{%endfor%}
-</div>
-{%for r in form2%}
     {{r.management_form}}
-<div class="update">
-<table border="1px">
-  <tr>
-    <td>{{r.as_table}}</td>
-  </tr>
-</table>
-  {{r.id}}
-  {{r.as_p}}
+  <div class="reciept">
+
+{{reciept}}
 
 </div>
-<br>
-<br>
-{%endfor%}
+
+  <table>
+    <tr>
+      <td>reciept Number</td>
+      <td>Item Name</td>
+      <td>Item Code</td>
+      <td>Quantity</td>
+      <td>Units</td>
+      <td>Cost</td>
+      <td>visibility</td>
+    </tr>
+    {%for r in f%}
+    <tr>
+      <td>{{r.rec_no}}</td>
+      <td>{{r.item_des}}</td>
+      <td>{{r.item_code}}</td>
+      <td>{{r.quantity}}</td>
+      <td>{{r.unit}}</td>
+      <td>{{r.cost}}</td>
+      <td>{{r.visibility}}</td>
+
+    </tr>
+    {%endfor%}
+
+  </table>
+
+
 
 <input type="submit" name="update" value="update database" class="menue">
 

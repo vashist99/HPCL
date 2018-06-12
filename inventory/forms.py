@@ -18,6 +18,5 @@ class reciept(forms.ModelForm):
 
 class HR(forms.ModelForm):
     class Meta:
-        ordering=('item_des',)
         model=models.child
         fields={'item_des','item_code','quantity','unit','visibility','cost','rec_no'}

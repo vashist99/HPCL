@@ -8,7 +8,7 @@ from hpemployee.models import hpemployee
 from django.forms.formsets import formset_factory,BaseFormSet
 from django.forms.models import modelformset_factory,inlineformset_factory,BaseInlineFormSet
 
-variable1=modelformset_factory(child,form=HR,max_num=5,min_num=4,exclude=())
+variable1=modelformset_factory(child,form=HR)
 
 
 @login_required(login_url='/employee/login/')
@@ -18,12 +18,11 @@ def home(request):
         use=request.session['key1']
         q1=hpemployee.objects.filter(employee_number=use)
         q2=hpemployee.objects.get(employee_number=use)
-        #data={'form-TOTAL_FORMS':'3',
-        #      'form-INITIAL_FORMS':'3',
-        #      'form-MAX_NUM_FORMS':'5',
-        #      'form-MIN_NUM_FORMS':'2',
-        #      }
-
+        data={'form-TOTAL_FORMS':'3',
+              'form-INITIAL_FORMS':'3',
+              'form-MAX_NUM_FORMS':'5',
+              'form-MIN_NUM_FORMS':'2',
+              }
         if q2.status=='NHR':
             if request.method=='POST':
                 #return HttpResponse(name.__init__())
@@ -35,11 +34,9 @@ def home(request):
                     all=parent.objects.filter(loc=locate).filter(visibility='yes').filter(visibility='yes').filter(activity='active')
                     return render(request,'inventory/invent.html',{'data':q1,'ha':all})
 
-
             return render(request,'inventory/invent.html',{'data':q1})
 
         elif q2.status=='HR':
-
 
             data3={
                  'form-TOTAL_FORMS':'2',
@@ -48,25 +45,28 @@ def home(request):
                  'form-MIN_NUM_FORMS':'2',
                  }
             if request.method=='POST':
-                r=variable1(data3)
+
                 if 'logout' in request.POST:
                     logout(request)
                     return redirect('/employee/login/')
 
                 elif 'see_all' in request.POST:
+                    r=variable1(data3)
                     if 'key' in request.session:
                         form=reciept()
                         locate=request.session['key']
                         #return HttpResponse(locate)
                         all=child.objects.filter(loc=locate)
-                        return render(request,'inventory/invent.html',{'data':q1,'ha':all,'form2':r,'form':form})
+                        return render(request,'inventory/invent.html',{'data':q1,'ha':all,'f':r,'reciept':reciept})
+                        r.cleaned_data
 
                 elif 'update' in request.POST:
+                    r=variable1(data3)
                     form=reciept(request.POST)
+
                     if form.is_valid():
                         form.save()
-                        return HttpResponse('kjh')
-
+                        #return HttpResponse('kjh')
 
                     if r.is_valid():
                         check=child.objects.filter(item_des=i)
@@ -79,7 +79,6 @@ def home(request):
                                 #return HttpResponse('haha')
                                 if 'key' in request.session:
                                     #return HttpResponse('olalal')
-
                                     #return HttpResponse('hakunamataa')
                                     child.objects.filter(item_des=i).update(loc=request.session['key'],activity='active')
                             else:
@@ -94,10 +93,8 @@ def home(request):
                                     child.objects.filter(item_des=i).update(item_code=b,activity='active',cost=e,recno=i,loc=request.session['key'],visibilitty=g)
                     else:
                         return HttpResponse('hahaha')
-                    return render(request,'inventory/invent.html',{'data':q1,'form2':r,'form':form})
+                    return render(request,'inventory/invent.html',{'data':q1,'f':r,'reciept':reciept})
             else:
-
                 r=variable1(data3)
                 form=reciept()
-
-            return render(request,'inventory/invent.html',{'data':q1,'form2':r,'form':form})
+            return render(request,'inventory/invent.html',{'data':q1,'f':r,'reciept':reciept})
