@@ -7,10 +7,6 @@ class DateInput(forms.DateInput):
     input_type = 'date'
 
 
-class name(forms.Form):
-    item_name=forms.CharField(max_length=100)
-
-
 class reciept(forms.ModelForm):
     class Meta:
         model=models.reciept
@@ -23,5 +19,5 @@ class reciept(forms.ModelForm):
 class HR(forms.ModelForm):
     class Meta:
         model=models.child
-        fields={'item_des','item_code','activity','quantity','unit','visibility','cost','rec_no'}
-        exclude=('field_id',)
+        fields={'item_des','item_code','quantity','unit','visibility','cost','rec_no'}
+    

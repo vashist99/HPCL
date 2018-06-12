@@ -16,12 +16,6 @@
 
 <input type="submit" name="logout" value="LOGOUT" class="menue"/>
 <input type="submit" name="see_all" value="View Inventory" class="menue"/>
-{%for var in form1%}
-{{var.management_form}}
-{{var}}
-{%endfor%}
-<input type="submit" name="see" value="view item" class="menue"/>
-
   </form>
 
   <table border="1px">
@@ -79,12 +73,13 @@
 <br>
 <br>------------------- ONLY FOR H.R DEPARTMENT PURPOSES------------------------<br><br><br>
 <form class="hr" action="{%url 'invent'%}" method="post" enctype="multipart/form-data">
+{%csrf_token%}
   <div class="reciept">
 {%for form in form%}
 {{form}}
 {%endfor%}
 </div>
-{%for r in key%}
+{%for r in form2%}
     {{r.management_form}}
 <div class="update">
 
@@ -94,7 +89,7 @@
 <br>
 <br>
 {%endfor%}
-{%csrf_token%}
+
 <input type="submit" name="update" value="update database" class="menue">
 
 </form>

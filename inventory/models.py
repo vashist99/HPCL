@@ -11,15 +11,15 @@ class reciept(models.Model):
     num=models.IntegerField(null=True)
 
 class child(models.Model):
-    rec_no=models.IntegerField(null=True)
-    item_des=models.CharField(max_length=50)
-    item_code=models.CharField(max_length=50)
-    activity=models.CharField(max_length=50)
-    quantity=models.IntegerField()
-    cost=models.IntegerField(null=True)
+    rec_no=models.IntegerField(null=True,blank=True)
+    item_des=models.CharField(max_length=50,null=True,blank=True)
+    item_code=models.CharField(max_length=50,null=True,blank=True)
+    activity=models.CharField(max_length=50,null=True,blank=True)
+    quantity=models.IntegerField(null=True,blank=True)
+    cost=models.IntegerField(null=True,blank=True)
     unit=models.CharField(max_length=50,blank=True)
     visibility=models.CharField(max_length=50,blank=True)
-    loc=models.IntegerField(max_length=50,null=True)
+    loc=models.IntegerField(null=True,blank=True)
 
     def __str__(self):
         return self.item_des
