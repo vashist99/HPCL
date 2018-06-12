@@ -82,7 +82,12 @@
 {%for r in form2%}
     {{r.management_form}}
 <div class="update">
-
+<table border="1px">
+  <tr>
+    <td>{{r.as_table}}</td>
+  </tr>
+</table>
+  {{r.id}}
   {{r.as_p}}
 
 </div>
