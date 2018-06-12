@@ -48,6 +48,7 @@
       <td>{{all.unit}}</td>
       <td>{{all.cost}}</td>
 
+
     </tr>
 {%endfor%}
 {%endif%}
@@ -64,9 +65,9 @@
       <td>{{query.quantity}}</td>
       <td>{{query.unit}}</td>
       <td>{{query.cost}}</td>
+  </tr>
+{%endfor%}
 
-    </tr>
-    {%endfor%}
 {%endif%}
 
 
@@ -78,18 +79,18 @@
 <br>
 <br>------------------- ONLY FOR H.R DEPARTMENT PURPOSES------------------------<br><br><br>
 <form class="hr" action="{%url 'invent'%}" method="post" enctype="multipart/form-data">
+  <div class="reciept">
 {%for form in form%}
 {{form}}
 {%endfor%}
-
-{%for r in forms%}
+</div>
+{%for r in key%}
     {{r.management_form}}
-    <table>
-    <tr class="item_info">
-      <td></td>
-    </tr>
-    </table>
-{{r.as_table}}
+<div class="update">
+
+  {{r.as_p}}
+
+</div>
 <br>
 <br>
 {%endfor%}

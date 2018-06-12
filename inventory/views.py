@@ -8,7 +8,7 @@ from hpemployee.models import hpemployee
 from django.forms.formsets import formset_factory,BaseFormSet
 from django.forms.models import modelformset_factory,inlineformset_factory,BaseInlineFormSet
 variable=formset_factory(name,formset=BaseFormSet,max_num=5,min_num=2)
-variable1=modelformset_factory(child,form=HR,max_num=10,min_num=5,exclude=())
+variable1=modelformset_factory(child,form=HR,max_num=5,min_num=4,exclude=())
 
 @login_required(login_url='/employee/login/')
 def home(request):
@@ -44,14 +44,14 @@ def home(request):
                         #return HttpResponse(des)
                         #return HttpResponse(key)
                         #return HttpResponse(locate)
-                        query=child.objects.filter(item_des=des,locode=locate)
+                        query=child.objects.filter(item_des=des,loc=locate)
                         #return HttpResponse(query)
                         return render(request,'inventory/invent.html',{'data':q1,'form1':var,'forms':query})
 
 
                 elif 'see_all' in request.POST:
                     locate=request.session['key']
-                    all=parent.objects.filter(locode=locate).filter(visibility='yes').filter(visibility='yes').filter(activity='active')
+                    all=parent.objects.filter(loc=locate).filter(visibility='yes').filter(visibility='yes').filter(activity='active')
                     return render(request,'inventory/invent.html',{'data':q1,'form1':var,'ha':all})
             else:
                 #return HttpResponse(name.__init__())
@@ -69,35 +69,48 @@ def home(request):
                     logout(request)
                     return redirect('/employee/login/')
                 elif 'see' in request.POST:
-                    data2={
-                         'form-0-item_name':request.POST,
-                         }
+                    form=reciept()
+                #    data2={
+                #         'form-0-item_name':'',
+                #         'form-1-item_name':'',
+                #         'form-2-item_name':''
+                #         }
                     if 'key' in request.session:
                         #return HttpResponse(des)
                         locate=request.session['key']
                         #return HttpResponse(request.POST)
-                    for key in data2:
-                        des=request.POST[key]
-                        #return HttpResponse(des)
+                        des1=request.POST['form-0-item_name']
+                        des2=request.POST['form-1-item_name']
+                        des3=request.POST['form-2-item_name']
+                        #return HttpResponse(des3)
+                        #return HttpResponse(des2)
+                        #return HttpResponse(des1)
                         #return HttpResponse(key)
                         #return HttpResponse(locate)
-                        query=child.objects.filter(item_des=des,locode=locate)
-                        #return HttpResponse(query)
-                        query=child.objects.filter(item_des=des).filter(locode=locate)
-                        return render(request,'inventory/invent.html',{'data':q1,'form1':var,'forms':query,'forms':form,'form':r})
+                        query1=child.objects.filter(item_des=des1).filter(loc=locate)
+                        query2=child.objects.filter(item_des=des2).filter(loc=locate)
+                        query3=child.objects.filter(item_des=des3).filter(loc=locate)
+                        #return HttpResponse(query3)
+                        #return HttpResponse(query2)
+                        #return HttpResponse(query1)
+                        return render(request,'inventory/invent.html',{'data':q1,'form1':var,'forms':query1,'forms':query2,'forms':query3,'key':r,'form':form})
                 elif 'see_all' in request.POST:
-                    locate=request.session['key']
-                    all=child.objects.filter(locode=locate)
-                    return render(request,'inventory/invent.html',{'data':q1,'form1':var,'ha':all,'forms':form,'form':r})
+                    if 'key' in request.session:
+                        form=reciept()
+                        locate=request.session['key']
+                        #return HttpResponse(locate)
+                        all=child.objects.filter(loc=locate)
+                        return render(request,'inventory/invent.html',{'data':q1,'form1':var,'ha':all,'key':r,'form':form})
+
                 elif 'update' in request.POST:
-                    r=reciept(request.POST)
+                    form=reciept(request.POST)
                     data3={
-                        'form-0-item_code':request.POST,
-                        'form-0-item_des':request.POST,
-                        'form-0-activity':request.POST,
-                        'form-0-quantity':request.POST,
-                        'form-0-unit':request.POST,
-                        'form-0-visibility':request.POST,
+                        'form-0-item_code':'',
+                        'form-0-item_des':'',
+                        'form-0-activity':'',
+                        'form-0-quantity':'',
+                        'form-0-unit':'',
+                        'form-0-visibility':'',
                         }
                     for key in data3:
                         i=request.POST[key]
@@ -121,4 +134,4 @@ def home(request):
             else:
                 r=variable1()
                 form=reciept()
-            return render(request,'inventory/invent.html',{'data':q1,'form1':var,'forms':r,'form':form})
+            return render(request,'inventory/invent.html',{'data':q1,'form1':var,'key':r,'form':form})
