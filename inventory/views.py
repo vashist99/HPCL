@@ -102,13 +102,14 @@ def home(request):
                     return render(request,'inventory/invent.html',{'data':q1,'f':r,'reciept':rep})
 
                 elif 'master' in request.POST:
-                    return redirect('/inventory/itemmaster/')    
+                    return redirect('/inventory/itemmaster/')
 
             else:
+                ch=child()
                 #return HttpResponse(request.GET)
                 r=variable1(data3)
                 rep=rec()
-            return render(request,'inventory/invent.html',{'data':q1,'f':r,'reciept':rep})
+            return render(request,'inventory/invent.html',{'data':q1,'f':r,'reciept':rep,'ch':ch})
 
 
 def master(request):
