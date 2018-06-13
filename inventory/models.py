@@ -3,14 +3,14 @@ from django.core.validators import ValidationError
 
 
 class reciept(models.Model):
-    locode=models.IntegerField(null=True)
-    pono=models.IntegerField(null=True)
-    inno=models.IntegerField(null=True)
-    pdate=models.DateField(null=True)
-    rdate=models.DateField(null=True)
-    num=models.IntegerField(null=True)
+    locode=models.IntegerField(null=True,blank=True)
+    pono=models.IntegerField(null=True,blank=True)
+    inno=models.IntegerField(null=True,blank=True)
+    pdate=models.DateField(null=True,blank=True)
+    rdate=models.DateField(null=True,blank=True)
+    num=models.IntegerField(null=True,blank=True)
 
-    def __str__(self):
+    def __int__(self):
         return self.num
 
 class child(models.Model):

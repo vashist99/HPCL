@@ -76,40 +76,34 @@
 {%csrf_token%}
     {{r.management_form}}
   <div class="reciept">
-
-{{reciept}}
-
+{%for rep in reciept%}
+{{rep.label}}
+{{rep}}
+{%endfor%}
 </div>
 
-  <table>
+  <table border="1px">
     <tr>
-      <td>reciept Number</td>
       <td>Item Name</td>
-      <td>Item Code</td>
       <td>Quantity</td>
-      <td>Units</td>
       <td>Cost</td>
-      <td>visibility</td>
     </tr>
     {%for r in f%}
     <tr>
-      <td>{{r.rec_no}}</td>
       <td>{{r.item_des}}</td>
-      <td>{{r.item_code}}</td>
       <td>{{r.quantity}}</td>
-      <td>{{r.unit}}</td>
       <td>{{r.cost}}</td>
-      <td>{{r.visibility}}</td>
 
     </tr>
     {%endfor%}
 
   </table>
-
-
-
 <input type="submit" name="update" value="update database" class="menue">
+<br>
 
+</form>
+<form class="inventory" action="{%url 'master'%}" method="post">
+<input type="submit" name="master" value="Item Master" class="menue">
 </form>
 {%endifequal%}
 {%endfor%}

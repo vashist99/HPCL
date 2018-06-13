@@ -3,11 +3,13 @@ from django.forms.formsets import BaseFormSet
 from django.forms.models import BaseInlineFormSet
 from.import models
 
+ch=models.
+ITEMS=[tuple([x,ch.item_des]) for x in range(6)]
 class DateInput(forms.DateInput):
     input_type = 'date'
 
 
-class reciept(forms.ModelForm):
+class rec(forms.ModelForm):
     class Meta:
         model=models.reciept
         fields={'locode','pono','inno','pdate','rdate','num'}
@@ -19,4 +21,10 @@ class reciept(forms.ModelForm):
 class HR(forms.ModelForm):
     class Meta:
         model=models.child
-        fields={'item_des','item_code','quantity','unit','visibility','cost','rec_no'}
+        fields={'item_des','quantity','cost'}
+        widget=forms.Select(choices=ITEMS)
+
+class itemmaster(forms.ModelForm):
+    class Meta:
+        model=models.child
+        fields={'item_des','item_code','unit','visibility'}

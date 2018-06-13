@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.http import HttpResponse
 from .models import child,reciept
-from .forms import HR,reciept
+from .forms import HR,rec,itemmaster
 from hpemployee.models import hpemployee
 from django.forms.formsets import formset_factory,BaseFormSet
 from django.forms.models import modelformset_factory,inlineformset_factory,BaseInlineFormSet
@@ -54,54 +54,72 @@ def home(request):
                 elif 'see_all' in request.POST:
                     r=variable1(data3)
                     if 'key' in request.session:
-                        form=reciept()
+                        rep=rec()
                         locate=request.session['key']
                         #return HttpResponse(locate)
                         all=child.objects.filter(loc=locate)
-                        return render(request,'inventory/invent.html',{'data':q1,'ha':all,'f':r,'reciept':reciept})
+                        return render(request,'inventory/invent.html',{'data':q1,'ha':all,'f':r,'reciept':rep})
                         r.cleaned_data
 
                 elif 'update' in request.POST:
-                    r=variable1(data3)
-                    form=reciept(request.POST)
+                    r=variable1(data=request.POST,files=request.FILES)
+                    rep=rec(request.POST)
                     recie=request.POST['num']
                     if 'key' in request.session:
                         locate=request.session['key']
-                    if form.is_valid():
-                        recie1=child.objects.filter(num=recie,locode=locate)
+                    if rep.is_valid():
+                        recie1=reciept.objects.filter(num=recie,locode=locate)
                         if not recie1:
-                            form.save()
+                            rep.save()
                         else:
                             raise ValidationError('a reciept by the same number already exists at this location please enter the unique recieptnumber')
                         #return HttpResponse('kjh')
+                    if variable1.is_valid():
+                        if r in variable1():
+                            if r.is_valid():
+                                return HttpResponse('valid')
+                                check=child.objects.filter(item_des=i)
 
-                    if r.is_valid():
-                        check=child.objects.filter(item_des=i)
-                        for key in data3:
-                            i=request.POST[key]
-                            #return HttpResponse(i)
-
-                            if not check:
-                                r.save()
-                                #return HttpResponse('haha')
-                                if 'key' in request.session:
-                                    #return HttpResponse('olalal')
-                                    #return HttpResponse('hakunamataa')
-                                    child.objects.filter(item_des=i).update(loc=request.session['key'],activity='active')
-                            else:
-                                if 'key'in request.session:
-                                    b=request.POST['item_code']
-                                    c=request.POST['activity']
-                                    d=request.POST['quantity']
-                                    e=request.POST['cost']
-                                    f=request.POST['unit']
-                                    g=request.POST['visibility']
-                                    i=request.POST['rec_no']
-                                    child.objects.filter(item_des=i).update(item_code=b,activity='active',cost=e,recno=i,loc=request.session['key'],visibilitty=g)
+                                if not check:
+                                    r.save()
+                                    #return HttpResponse('haha')
+                                    if 'key' in request.session:
+                                        #return HttpResponse('olalal')
+                                        #return HttpResponse('hakunamataa')
+                                        child.objects.filter(item_des=i).update(loc=request.session['key'],activity='active')
+                                else:
+                                    if 'key'in request.session:
+                                        b=request.POST['item_code']
+                                        c=request.POST['activity']
+                                        d=request.POST['quantity']
+                                        e=request.POST['cost']
+                                        f=request.POST['unit']
+                                        g=request.POST['visibility']
+                                        i=request.POST['rec_no']
+                                        child.objects.filter(item_des=i).update(item_code=b,activity='active',cost=e,recno=i,loc=request.session['key'],visibilitty=g)
                     else:
                         return HttpResponse('hahaha')
-                    return render(request,'inventory/invent.html',{'data':q1,'f':r,'reciept':reciept})
+                    return render(request,'inventory/invent.html',{'data':q1,'f':r,'reciept':rep})
+
+                elif 'master' in request.POST:
+                    return redirect('/inventory/itemmaster/')    
+
             else:
+                #return HttpResponse(request.GET)
                 r=variable1(data3)
-                form=reciept()
-            return render(request,'inventory/invent.html',{'data':q1,'f':r,'reciept':reciept})
+                rep=rec()
+            return render(request,'inventory/invent.html',{'data':q1,'f':r,'reciept':rep})
+
+
+def master(request):
+    #return HttpReponse('smdjfk')
+    if request.method=='POST':
+        new=itemmaster(request.POST)
+        if new.is_valid():
+            new.save()
+        else:
+            return HttpResponse('invalid entry')
+        return render(request,'inventory/master.html',{'item':new})
+    elif request.method=='GET':
+        new=itemmaster()
+    return render(request,'inventory/master.html',{'item':new})

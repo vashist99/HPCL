@@ -1,0 +1,11 @@
+{%extends 'base.html'%}
+{%block body%}
+hahah
+<form class="" action="{%url 'home'%}" method="post">
+  {%for new in item%}
+  {{new.label}}
+  {{new}}
+  {%endfor%}
+  <input type="submit" name="create" value="Create New Item" class="menue">
+</form>
+{%endblock%}
