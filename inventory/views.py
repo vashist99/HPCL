@@ -7,6 +7,7 @@ from .forms import HR,reciept
 from hpemployee.models import hpemployee
 from django.forms.formsets import formset_factory,BaseFormSet
 from django.forms.models import modelformset_factory,inlineformset_factory,BaseInlineFormSet
+from django.core.validators import ValidationError
 
 variable1=modelformset_factory(child,form=HR)
 
@@ -31,7 +32,7 @@ def home(request):
                     return redirect('/employee/login/')
                 elif 'see_all' in request.POST:
                     locate=request.session['key']
-                    all=parent.objects.filter(loc=locate).filter(visibility='yes').filter(visibility='yes').filter(activity='active')
+                    all=child.objects.filter(loc=locate).filter(visibility='yes').filter(activity='active')
                     return render(request,'inventory/invent.html',{'data':q1,'ha':all})
 
             return render(request,'inventory/invent.html',{'data':q1})
@@ -63,9 +64,15 @@ def home(request):
                 elif 'update' in request.POST:
                     r=variable1(data3)
                     form=reciept(request.POST)
-
+                    recie=request.POST['num']
+                    if 'key' in request.session:
+                        locate=request.session['key']
                     if form.is_valid():
-                        form.save()
+                        recie1=child.objects.filter(num=recie,locode=locate)
+                        if not recie1:
+                            form.save()
+                        else:
+                            raise ValidationError('a reciept by the same number already exists at this location please enter the unique recieptnumber')
                         #return HttpResponse('kjh')
 
                     if r.is_valid():
