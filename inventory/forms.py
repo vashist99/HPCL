@@ -2,12 +2,16 @@ from django import forms
 from django.forms.formsets import BaseFormSet
 from django.forms.models import BaseInlineFormSet
 from.import models
+def get_choices():
+    LIST=[]
+    ch=models.child()
+    while ch:
+        LIST.append(ch)
 
-ch=models.
-ITEMS=[tuple([x,ch.item_des]) for x in range(6)]
+    return LIST
+
 class DateInput(forms.DateInput):
     input_type = 'date'
-
 
 class rec(forms.ModelForm):
     class Meta:
@@ -17,12 +21,15 @@ class rec(forms.ModelForm):
             'pdate': DateInput(attrs={'type': 'date'})
             ,'rdate': DateInput(attrs={'type': 'date'})}
 
-
 class HR(forms.ModelForm):
+    def __init__(self,*args,**kwargs):
+        super(HR,self).__init__(*args,**kwargs)
+        self.fields['item_des']=forms.ModelChoiceField(
+         choices=get_choices()
+        )
     class Meta:
         model=models.child
         fields={'item_des','quantity','cost'}
-        widget=forms.Select(choices=ITEMS)
 
 class itemmaster(forms.ModelForm):
     class Meta:
