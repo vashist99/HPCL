@@ -1,5 +1,5 @@
-{%extends 'base.html'%}
-{%block body%}
+{%extends 'baseinvent.html'%}
+{%block body1%}
 <div class="whole" align='center'>
   <div class="info" align="left">
     {% for q1 in data %}
@@ -10,11 +10,11 @@
     {{q1.location}}
     {%endfor%}
   </div>
-  <form class="inventory" action="{%url 'invent'%}" method="post" enctype="multipart/form-data">
+  <form class="inventory" action="{%url 'invent'%}" method="post">
     {%csrf_token%}
 
 
-<input type="submit" name="logout" value="LOGOUT" class="menue"/>
+
 <input type="submit" name="see_all" value="View Inventory" class="menue"/>
   </form>
 
@@ -74,9 +74,10 @@
 <br>------------------- ONLY FOR H.R DEPARTMENT PURPOSES------------------------<br><br><br>
 <form class="hr" action="{%url 'invent'%}" method="post" enctype="multipart/form-data">
 {%csrf_token%}
-    {{r.management_form}}
+  {{r.management_form}}
   <div class="reciept">
 {%for rep in reciept%}
+
 {{rep.label}}
 {{rep}}
 {%endfor%}
@@ -89,14 +90,16 @@
       <td>Cost</td>
     </tr>
     {%for r in f%}
+
     <tr>
       <td>
 
         {{r.item_des}}
 
-      </select></td>
+      </td>
       <td>{{r.quantity}}</td>
       <td>{{r.cost}}</td>
+      <td class="hidden">{{r.id}}</td>
 
     </tr>
     {%endfor%}
@@ -104,11 +107,10 @@
   </table>
 <input type="submit" name="update" value="update database" class="menue">
 <br>
-
-</form>
-<form class="inventory" action="{%url 'master'%}" method="post">
 <input type="submit" name="master" value="Item Master" class="menue">
 </form>
+
+
 {%endifequal%}
 {%endfor%}
 </div>

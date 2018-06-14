@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import logout
+from django.contrib.auth.models import User
+from django.contrib.auth import logout,login
 from django.http import HttpResponse
 from .models import child,reciept
 from .forms import HR,rec,itemmaster
@@ -9,28 +10,39 @@ from django.forms.formsets import formset_factory,BaseFormSet
 from django.forms.models import modelformset_factory,inlineformset_factory,BaseInlineFormSet
 from django.core.validators import ValidationError
 
-variable1=modelformset_factory(child,form=HR)
-
-
 @login_required(login_url='/employee/login/')
-def home(request):
+def baseinvent(request):
+    if request.method=='POST':
 
+        if 'logout' in request.POST:
+            logout(request,user)
+            return redirect('/employee/login/')
+        elif 'inventory' in request.POST:
+            #return HttpResponse(request.POST)
+            #login(request,user)
+            if request.user.is_authenticated:
+                return master(request)
+        elif 'itemmaster' in request.POST:
+            login(request,user)
+            return redirect('/inventory/itemmaster/')
+    else:
+        return render(request,'inventory/baseinvent.html')
+@login_required()
+def home(request):
     if 'key1' in request.session:
         use=request.session['key1']
         q1=hpemployee.objects.filter(employee_number=use)
         q2=hpemployee.objects.get(employee_number=use)
-        data={'form-TOTAL_FORMS':'3',
-              'form-INITIAL_FORMS':'3',
-              'form-MAX_NUM_FORMS':'5',
-              'form-MIN_NUM_FORMS':'2',
-              }
+
         if q2.status=='NHR':
             if request.method=='POST':
                 #return HttpResponse(name.__init__())
                 if 'logout' in request.POST:
                     logout(request)
                     return redirect('/employee/login/')
+
                 elif 'see_all' in request.POST:
+
                     locate=request.session['key']
                     all=child.objects.filter(loc=locate).filter(visibility='yes').filter(activity='active')
                     return render(request,'inventory/invent.html',{'data':q1,'ha':all})
@@ -38,22 +50,20 @@ def home(request):
             return render(request,'inventory/invent.html',{'data':q1})
 
         elif q2.status=='HR':
+            que=child.objects.filter(loc=request.session['key'])
+            variable1=modelformset_factory(child,form=HR)
 
             data3={
                  'form-TOTAL_FORMS':'2',
-                 'form-INITIAL_FORMS':'2',
                  'form-MAX_NUM_FORMS':'5',
-                 'form-MIN_NUM_FORMS':'2',
-                 }
+                 'form-MIN_NUM_FORMS':'2'
+                     }
+
             if request.method=='POST':
 
-                if 'logout' in request.POST:
-                    logout(request)
-                    return redirect('/employee/login/')
-
-                elif 'see_all' in request.POST:
-                    r=variable1(data3)
+                if 'see_all' in request.POST:
                     if 'key' in request.session:
+                        r=variable1()
                         rep=rec()
                         locate=request.session['key']
                         #return HttpResponse(locate)
@@ -61,59 +71,41 @@ def home(request):
                         return render(request,'inventory/invent.html',{'data':q1,'ha':all,'f':r,'reciept':rep})
                         r.cleaned_data
 
-                elif 'update' in request.POST:
-                    r=variable1(data=request.POST,files=request.FILES)
-                    rep=rec(request.POST)
-                    recie=request.POST['num']
-                    if 'key' in request.session:
+                    elif 'update' in request.POST:
+                        #return HttpResponse(request.POST)
+                        r=variable1(request.POST)
+                        return HttpResponse(r)
+                        rep=rec(request.POST)
+                        recie=request.POST['num']
                         locate=request.session['key']
-                    if rep.is_valid():
-                        recie1=reciept.objects.filter(num=recie,locode=locate)
-                        if not recie1:
-                            rep.save()
-                        else:
-                            raise ValidationError('a reciept by the same number already exists at this location please enter the unique recieptnumber')
-                        #return HttpResponse('kjh')
-                    if variable1.is_valid():
-                        if r in variable1():
-                            if r.is_valid():
-                                return HttpResponse('valid')
-                                check=child.objects.filter(item_des=i)
+                        if rep.is_valid():
+                            recie1=reciept.objects.filter(num=recie,locode=locate)
+                            if not recie1:
+                                rep.save()
+                            else:
+                                raise ValidationError('a reciept by the same number already exists at this location please enter the unique recieptnumber')
+                                #return HttpResponse('kjh')
 
-                                if not check:
-                                    r.save()
-                                    #return HttpResponse('haha')
-                                    if 'key' in request.session:
-                                        #return HttpResponse('olalal')
-                                        #return HttpResponse('hakunamataa')
-                                        child.objects.filter(item_des=i).update(loc=request.session['key'],activity='active')
-                                else:
-                                    if 'key'in request.session:
-                                        b=request.POST['item_code']
-                                        c=request.POST['activity']
-                                        d=request.POST['quantity']
-                                        e=request.POST['cost']
-                                        f=request.POST['unit']
-                                        g=request.POST['visibility']
-                                        i=request.POST['rec_no']
-                                        child.objects.filter(item_des=i).update(item_code=b,activity='active',cost=e,recno=i,loc=request.session['key'],visibilitty=g)
-                    else:
-                        return HttpResponse('hahaha')
-                    return render(request,'inventory/invent.html',{'data':q1,'f':r,'reciept':rep})
-
-                elif 'master' in request.POST:
-                    return redirect('/inventory/itemmaster/')
-
+                                if r.is_valid():
+                                    return HttpResponse('valid ')
+                                    if form in r:
+                                        if form.is_valid():
+                                            return HttpResponse('valid')
+                                            c=request.POST['activity']
+                                            d=request.POST['quantity']
+                                            e=request.POST['cost']
+                                            i=request.POST['rec_no']
+                                            child.objects.filter(item_des=i,loc=locate).update(quantity=d,activity='active',cost=e,recno=i)
+                                            #else:
+                                            #return HttpResponse('hahaha')
+                                            return render(request,'inventory/invent.html',{'data':q1,'f':r,'reciept':rep})
             else:
-                ch=child()
-                #return HttpResponse(request.GET)
-                r=variable1(data3)
+                r=variable1()
                 rep=rec()
-            return render(request,'inventory/invent.html',{'data':q1,'f':r,'reciept':rep,'ch':ch})
+            return render(request,'inventory/invent.html',{'data':q1,'f':r,'reciept':rep})
 
-
+@login_required(login_url='/employee/login/')
 def master(request):
-    #return HttpReponse('smdjfk')
     if request.method=='POST':
         new=itemmaster(request.POST)
         if new.is_valid():
@@ -121,6 +113,9 @@ def master(request):
         else:
             return HttpResponse('invalid entry')
         return render(request,'inventory/master.html',{'item':new})
-    elif request.method=='GET':
+    else:
         new=itemmaster()
     return render(request,'inventory/master.html',{'item':new})
+
+    #print('welcome')
+    #return HttpReponse('smdjfk')

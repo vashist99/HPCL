@@ -5,6 +5,7 @@ from.import models
 ch=models.child.objects.all().order_by('item_des')
 LIST=[tuple([x,x]) for x in ch]
 
+
 class DateInput(forms.DateInput):
     input_type = 'date'
 
@@ -17,6 +18,7 @@ class rec(forms.ModelForm):
             ,'rdate': DateInput(attrs={'type': 'date'})}
 
 class HR(forms.ModelForm):
+
     class Meta:
         model=models.child
         fields={'item_des','quantity','cost'}

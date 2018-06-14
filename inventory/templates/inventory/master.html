@@ -1,7 +1,7 @@
-{%extends 'base.html'%}
-{%block body%}
-hahah
-<form class="" action="{%url 'home'%}" method="post">
+{%extends 'baseinvent.html'%}
+{%block body1%}
+<form class="" action="{%url 'master'%}" method="post" enctype="multipart/form-data">
+  {%csrf_token%}
   {%for new in item%}
   {{new.label}}
   {{new}}

@@ -21,12 +21,12 @@ class child(models.Model):
     quantity=models.IntegerField(null=True,blank=True)
     cost=models.IntegerField(null=True,blank=True)
     unit=models.CharField(max_length=50,blank=True)
-    visibility=models.CharField(max_length=50,blank=True)
+    visibility=models.CharField(max_length=50,blank=True,null=True)
     loc=models.IntegerField(null=True,blank=True)
 
-    def clean(self):
-        if self.visibility!='yes' or self.visibility!='no':
-            raise ValidationError('enter a valid visibility')
+    #def clean(self):
+    #    if self.visibility!='yes' or self.visibility!='no':
+    #        raise ValidationError('enter a valid visibility')
 
 
 

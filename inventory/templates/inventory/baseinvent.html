@@ -1,0 +1,17 @@
+{%extends 'base.html'%}
+{%block body%}
+
+
+<form class="baseinvent" action="{%url 'baseinvent'%}" method="post">
+  {%csrf_token%}
+  <input type="submit" name="inventory" value="Inventory"class="menue"/>
+  <input type="submit" name="logout" value="LOGOUT" class="menue"/>
+  <input type="submit" name="itemmaster" value="item Master" class="menue"/>
+</form>
+
+
+{%block body1%}
+{%endblock%}
+<h1>Welcome to your homepage</h1>
+
+{%endblock%}
