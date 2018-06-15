@@ -12,26 +12,29 @@ from django.core.validators import ValidationError
 
 @login_required(login_url='/employee/login/')
 def baseinvent(request):
+    if 'key1' in request.session :
+        use=request.session['key1']
+        q1=hpemployee.objects.filter(employee_number=use)
     if request.method=='POST':
-
         if 'logout' in request.POST:
-            logout(request,user)
+            logout(request)
             return redirect('/employee/login/')
         elif 'inventory' in request.POST:
             #return HttpResponse(request.POST)
             #login(request,user)
-            if request.user.is_authenticated:
-                return master(request)
+            #logout(request)
+            return redirect('/inventory/viewinvent/')
         elif 'itemmaster' in request.POST:
-            login(request,user)
+            #login(request,user)
+            #logout(request)
             return redirect('/inventory/itemmaster/')
     else:
-        return render(request,'inventory/baseinvent.html')
-@login_required()
+        return render(request,'inventory/baseinvent.html',{'key':q1})
+
+@login_required(login_url='/employee/login/')
 def home(request):
     if 'key1' in request.session:
         use=request.session['key1']
-        q1=hpemployee.objects.filter(employee_number=use)
         q2=hpemployee.objects.get(employee_number=use)
 
         if q2.status=='NHR':
@@ -42,12 +45,11 @@ def home(request):
                     return redirect('/employee/login/')
 
                 elif 'see_all' in request.POST:
-
                     locate=request.session['key']
                     all=child.objects.filter(loc=locate).filter(visibility='yes').filter(activity='active')
-                    return render(request,'inventory/invent.html',{'data':q1,'ha':all})
+                    return render(request,'inventory/invent.html',{'ha':all})
 
-            return render(request,'inventory/invent.html',{'data':q1})
+            return render(request,'inventory/invent.html')
 
         elif q2.status=='HR':
             que=child.objects.filter(loc=request.session['key'])
@@ -68,7 +70,7 @@ def home(request):
                         locate=request.session['key']
                         #return HttpResponse(locate)
                         all=child.objects.filter(loc=locate)
-                        return render(request,'inventory/invent.html',{'data':q1,'ha':all,'f':r,'reciept':rep})
+                        return render(request,'inventory/invent.html',{'ha':all,'f':r,'reciept':rep})
                         r.cleaned_data
 
                     elif 'update' in request.POST:
@@ -98,14 +100,16 @@ def home(request):
                                             child.objects.filter(item_des=i,loc=locate).update(quantity=d,activity='active',cost=e,recno=i)
                                             #else:
                                             #return HttpResponse('hahaha')
-                                            return render(request,'inventory/invent.html',{'data':q1,'f':r,'reciept':rep})
+                                            return render(request,'inventory/invent.html',{'f':r,'reciept':rep})
             else:
                 r=variable1()
                 rep=rec()
-            return render(request,'inventory/invent.html',{'data':q1,'f':r,'reciept':rep})
+            return render(request,'inventory/invent.html',{'f':r,'reciept':rep})
 
-@login_required(login_url='/employee/login/')
 def master(request):
+    if 'key1' not in request.session:
+        return redirect('/employee/login/')
+
     if request.method=='POST':
         new=itemmaster(request.POST)
         if new.is_valid():

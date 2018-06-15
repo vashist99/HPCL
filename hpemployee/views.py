@@ -38,7 +38,6 @@ def employeepage(request):
             #return HttpResponse('Thanks!')
     else:
         form=empdetails()
-
     return render(request,'hpemployee\homepage.html',{"form":form})
 
 def employeedetails(request):
@@ -70,7 +69,6 @@ def employeedetails(request):
 
     else:
         num=query()
-
     return render(request,"hpemployee\employeedetails.html",{"form1":num})
 
 

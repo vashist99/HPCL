@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^$',views.homepage,name="home"),
     url(r'^about/$',views.about,name="about"),
+    url(r'^test/$',views.test),
     url(r'^employee/',include('hpemployee.urls')),
     url(r'^inventory/',include('inventory.urls')),
 ]

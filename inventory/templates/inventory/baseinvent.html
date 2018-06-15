@@ -8,8 +8,13 @@
   <input type="submit" name="logout" value="LOGOUT" class="menue"/>
   <input type="submit" name="itemmaster" value="item Master" class="menue"/>
 </form>
-
-
+{%for q1 in key%}
+{{q1.employee_name}}
+<br>
+{{q1.employee_number}}
+<br>
+{{q1.location}}
+{%endfor%}
 {%block body1%}
 {%endblock%}
 <h1>Welcome to your homepage</h1>
